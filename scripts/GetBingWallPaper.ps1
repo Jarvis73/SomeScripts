@@ -13,9 +13,9 @@ $bingImageName = $image.urlBase.split("/")[-1].split("_")[0] + "." + $image.url.
 $wallPaperPath = [System.Environment]::GetFolderPath("MyPictures") + "\EverydayBingWallPapers"
 
 $monthWallPaperPath = ($wallPaperPath, $startdate.Substring(0, 4), $startdate.Substring(4, 2)) -join "\"
-if (!(Test-Path $wallPaperPath))
+if (!(Test-Path $monthWallPaperPath))
 {
-    $null = New-Item $wallPaperPath -ItemType "directory"
+    $null = New-Item $monthWallPaperPath -ItemType "directory"
 }
 
 $wallPaperFile = ($monthWallPaperPath, $bingImageName) -join "\"
