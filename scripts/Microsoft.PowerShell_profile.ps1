@@ -1,43 +1,37 @@
-chcp 65001
+﻿chcp 65001
 Set-Alias ll Get-ChildItemColor
 Set-Alias jn jupyter-notebook.exe
 Set-Alias act ActivatePythonEnv
 Set-Alias fly Set-Proxy-ZJW
 Set-Alias land Clear-Proxy-ZJW
-Set-Alias which Get-Command
-Set-Alias whereis where.exe 
-# Set-Location C:\Users\Jarvis
+Set-Alias whereis where.exe
+Set-Alias scc Set-C-Compiler
+Set-Alias ccc Clear-C-Compiler
 
-function ln
-{
-    Get-ChildItemColor -Name
-}
-
-function jj
-{
-    Set-Location $env:USERPROFILE
-}
+Import-Module "Oh-My-Posh" -DisableNameChecking -NoClobber
 
 function prompt  
 {
     # $my_path 获取当前所在目录
-    $my_path = $(get-location).toString()  
+    # $my_path = $(get-location).toString()  
     # $my_pos = ($my_path).LastIndexOf("\") + 1
     # # 下面的 if-else 语句用来获得文件路径的最后一个目录名
     # # 比如 c:/user/xiaoming   ,  则 $my_path_tail 的内容是 xiaoming 
     # # 主要为了命令行终端的提示简洁一些， 根据需要自己修改
     # if( $my_pos -eq ($my_path).Length ) { $my_path_tail = $my_path }  
     # else { $my_path_tail = ($my_path).SubString( $my_pos, ($my_path).Length - $my_pos ) }
-
+    
+    $connection = [Char]0x03FE
+    $begin = [Char]0x0586
     # 下面一堆 write-host 定义了终端提示格式。
-    Write-Host ("@") -nonewline -foregroundcolor 'Green'  
-    Write-Host ("Jarvis ") -nonewline -foregroundcolor 'Green'  
-    Write-Host ($my_path) -nonewline -foregroundcolor 'DarkGreen'  
+    Write-Host ("Jarvis ") -nonewline -ForegroundColor Magenta
+    Write-Host ("$connection ") -nonewline -ForegroundColor Gray
+    Write-Host $pwd.ProviderPath -NoNewLine -ForegroundColor DarkGreen
+    # Write-Host ($my_path) -nonewline -ForegroundColor DarkGreen
     $realLASTEXITCODE = $LASTEXITCODE
     Write-VcsStatus
     $global:LASTEXITCODE = $realLASTEXITCODE
-    Write-Host ("")
-    Write-Host ("$") -nonewline -foregroundcolor 'Cyan'  
+    Write-Host ("`n$begin") -nonewline -foregroundcolor DarkGray  
     return " "  
 }
 
@@ -156,4 +150,18 @@ function Set-Proxy-ZJW
     # [System.Environment]::SetEnvironmentVariable("HTTPS_PROXY", $proxy, "User")
     
     Write-Host "`n   OPEN powershell proxy channel!`n"
+}
+
+function Set-C-Compiler
+{
+    $env:PathBackup = $env:Path
+    $env:Path = $env:Path + ";D:\Tools\MinGW\bin"
+    Write-Host "`n   Add MinGW compilers to environment variable PATH!`n"
+}
+
+function Clear-C-Compiler
+{
+    $env:Path = $env:PathBackup
+    Remove-Item env:PathBackup
+    Write-Host "`n   Clear MinGW compilers to environment variable PATH!`n"
 }

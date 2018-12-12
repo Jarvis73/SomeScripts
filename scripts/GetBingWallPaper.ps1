@@ -1,17 +1,3 @@
-#########################################################################
-#
-# Copyright © 2018 - 2019 Jianwei ZHANG
-# All rights reserved.
-#
-# Info: Download Bing everyday picture and set as wallpaper.
-#
-# Modified:
-#   * Initialization
-#   * Print running information
-#   * Check network and restart every one minute if failed
-#
-##########################################################################
-
 function print($info)
 {
     Get-Date -UFormat "%H:%M:%S " |write-host -NoNewline
@@ -29,7 +15,7 @@ while (1)
     }
     catch [System.Net.WebException]{
         print("Failed! Please check the network!")
-        Start-Sleep -Seconds 60
+        Start-Sleep -Seconds 5
     }
 }
 
@@ -50,17 +36,23 @@ if (!(Test-Path $monthWallPaperPath))
 $wallPaperFile = ($monthWallPaperPath, $bingImageName) -join "\"
 
 # Download and save image
-if (!(Test-Path $wallPaperFile))
+if (!(Test-Path $wallPaperFile) -or ($args[0] -eq "-renew") )
 {
     print("Trying download image...")
-    Invoke-WebRequest $bingImageURL -OutFile $wallPaperFile
-
-    # If failed, retry every 60 seconds
-    while (!(Test-Path $wallPaperFile))
+    while (1)
     {
-        Start-Sleep -Seconds 60
-        Invoke-WebRequest $bingImageURL -OutFile $wallPaperFile
+        $imageResponse = Invoke-WebRequest $bingImageURL -UseBasicParsing
+        $StatusCode = $imageResponse.StatusCode
+
+        if (!($StatusCode -eq 200)) {
+            print("Retry...")
+        }
+        else {
+            break
+        }
     }
+
+    [io.file]::WriteAllBytes($wallPaperFile, $imageResponse.Content)
 }
 
 # Set wallpaper
