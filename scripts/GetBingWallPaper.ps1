@@ -1,6 +1,6 @@
 function print($info)
 {
-    Get-Date -UFormat "%H:%M:%S " |write-host -NoNewline
+    Get-Date -UFormat "%H:%M:%S " |Write-Host -NoNewline
     Write-Host $info    
 }
 
@@ -23,7 +23,9 @@ while (1)
 $image = $reponse.images.image
 $enddate = $image.enddate
 $bingImageURL = "https://cn.bing.com" + $image.urlBase + "_1920x1080.jpg"
-$bingImageName = $enddate.Substring(6, 2) + "_" + $image.urlBase.split("/")[-1].split("_")[0] + "." + $image.url.split(".")[-1]
+$bingImageName = $enddate.Substring(6, 2) + "_" + $image.urlBase.split("/")[-1].split("_")[0].split(".")[-1] +`
+                 "." + $image.url.split("&")[0].split(".")[-1]
+$bingImageName = $bingImageName -replace "[/\\:\*\?""<>\|]"
 
 # Check folders
 $wallPaperPath = [System.Environment]::GetFolderPath("MyPictures") + "\EverydayBingWallPapers"
