@@ -4,7 +4,7 @@ function Clear-Proxy-ZJW
     # temporary
     Remove-Item env:HTTP_PROXY
     Remove-Item env:HTTPS_PROXY
-    Write-Host "`n   CLOSE powershell proxy channel!`n"
+    # Write-Host "`n   CLOSE powershell proxy channel!`n"
 }
 
 function Set-Proxy-ZJW
@@ -13,5 +13,5 @@ function Set-Proxy-ZJW
     # temporary
     $env:HTTP_PROXY = $proxy
     $env:HTTPS_PROXY = $proxy
-    Write-Host "`n   OPEN powershell proxy channel!`n"
+    # Write-Host "`n   OPEN powershell proxy channel!`n"
 }
