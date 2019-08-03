@@ -5,6 +5,20 @@ function ActivatePythonEnv($version)
     # & cmd /k "activate $version & powershell"
     $_CONDA_EXE_OBJ = Get-Item (Get-Command conda.exe).Path
     $_CONDA_ENV_DIR = Join-Path $_CONDA_EXE_OBJ.Directory.Parent.FullName -ChildPath "envs"
+    [string[]]$all_envs_dirs = Get-ChildItem $_CONDA_ENV_DIR -Directory | ForEach-Object { $_.Name } 
+    [string[]]$all_envs = $all_envs_dirs | Where-Object { Test-Path (Join-Path $_CONDA_ENV_DIR -ChildPath $_ | Join-Path -ChildPath "python.exe") }
+    if ($all_envs.Count -eq 0) {
+        Write-Host "No conda virtual environment found!"
+        return
+    }
+    if (!$version) {
+        if ($all_envs.Count -eq 1) {
+            $version = $all_envs[0]
+        } else {
+            Write-Host "More than one environment found in $_CONDA_ENV_DIR. Please specify env name exactly."
+            return
+        }
+    }
     $_CONDA_PREFIX = Join-Path $_CONDA_ENV_DIR -ChildPath $version
     if (Test-Path $_CONDA_PREFIX) {
         $env:CONDA_DEFAULT_ENV = $version
@@ -30,7 +44,10 @@ function ActivatePythonEnv($version)
         $env:CONDA_SHLVL=1
     }
     else {
-        Write-Host "Environment $version not found!"
+        Write-Host "Environment '$version' not found! Please choice from existed ones."
+        Write-Host
+        conda env list
+        return
     }
 }
 
