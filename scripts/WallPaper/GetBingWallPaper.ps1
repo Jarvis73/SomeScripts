@@ -28,7 +28,8 @@ $bingImageName = $enddate.Substring(6, 2) + "_" + $image.urlBase.split("/")[-1].
 $bingImageName = $bingImageName -replace "[/\\:\*\?""<>\|]"
 
 # Check folders
-$wallPaperPath = [System.Environment]::GetFolderPath("MyPictures") + "\EverydayBingWallPapers"
+# $wallPaperPath = [System.Environment]::GetFolderPath("MyPictures") + "\EverydayBingWallPapers"
+$wallPaperPath = "D:\OneDrive - zju.edu.cn\Photos\BingEveryday"
 $monthWallPaperPath = ($wallPaperPath, $enddate.Substring(0, 4), $enddate.Substring(4, 2)) -join "\"
 if (!(Test-Path $monthWallPaperPath))
 {
