@@ -21,6 +21,11 @@ while (1)
 
 # Extract date and image url
 $image = $reponse.images.image
+print($image.startdate)
+print($image.fullstartdate)
+print($image.enddate)
+print($image.url)
+print($image.urlBase)
 $enddate = $image.enddate
 $bingImageURL = "https://cn.bing.com" + $image.urlBase + "_1920x1080.jpg"
 $bingImageName = $enddate.Substring(6, 2) + "_" + $image.urlBase.split("/")[-1].split("_")[0].split(".")[-1] +`
@@ -58,9 +63,11 @@ if (!(Test-Path $wallPaperFile) -or ($args[0] -eq "-renew") )
     [io.file]::WriteAllBytes($wallPaperFile, $imageResponse.Content)
 }
 
+print($wallPaperFile)
+
 # Set wallpaper
 . "$PSScriptRoot\SetWallPaper.ps1"
-Set-Wallpaper -Path $wallPaperFile
+Set-Wallpaper -Image $wallPaperFile -Style Stretch
 
 print("Finished!")
 
