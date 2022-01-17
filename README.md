@@ -3,7 +3,7 @@
 ## Windows 平台
 
 * [Microsoft.PowerShell_profile.ps1](/win_scripts/Microsoft.PowerShell_profile.ps1) Startup scripts
-* [GetBingWallPaper.ps1](/win_scripts/GetBingWallPaper.ps1) Set Bing pictures to wallpaper everyday
+* [GetBingWallPaper.ps1](/win_scripts/WallPaper/GetBingWallPaper.ps1) Set Bing pictures to wallpaper everyday
 * [CondaPythonEnv.ps1](/win_scripts/Anaconda/CondaPythonEnv.ps1) Activate/Deactivate Anaconda virtual environment in Powershell (Keep inside current powershell program)
 * [tools.ps1](/win_scripts/tools.ps1) Some useful tools
     * `md5sum`
