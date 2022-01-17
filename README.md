@@ -20,7 +20,6 @@ This scripts are better to work with [Modified Oh-My-Posh](https://github.com/Ja
 Include the wanted scripts in the `Microsoft.PowerShell_profile.ps1` and `Microsoft.VSCode_profile.ps1` using dot operation (`.`). 
 
 ```pwsh
-. /path/to/powershell/scripts/GetBingWalPaper.ps1
 . /path/to/powershell/scripts/Anaconda/CondaPyThonEnv.ps1
 . /path/to/powershell/scripts/tools.ps1
 ```

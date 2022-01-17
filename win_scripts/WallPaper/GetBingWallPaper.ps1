@@ -65,9 +65,15 @@ if (!(Test-Path $wallPaperFile) -or ($args[0] -eq "-renew") )
 
 print($wallPaperFile)
 
+# ============================================================================
 # Set wallpaper
-. "$PSScriptRoot\SetWallPaper.ps1"
-Set-Wallpaper -Image $wallPaperFile -Style Stretch
+
+# Method 1: This method only set for the current virtual desktop
+# . "$PSScriptRoot\SetWallPaper.ps1"
+# Set-Wallpaper -Image $wallPaperFile -Style Stretch
+
+# Method 2: Set for all virtual desktops (Need install VirtualDesktop module)
+Set-AllDesktopWallpapers $wallPaperFile
 
 print("Finished!")
 
