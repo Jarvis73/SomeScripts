@@ -9,6 +9,6 @@ Add scripts below to your powershell startup script `Microsoft.PowerShell_profil
 . <path to ...>\PowerShell\scripts\TerminalProxy\TerminalProxy.ps1
 
 # Set alias
-Set-Alias fly Set-Proxy-ZJW
-Set-Alias land Clear-Proxy-ZJW
+Set-Alias fly Set-Proxy
+Set-Alias land Clear-Proxy
 ```
